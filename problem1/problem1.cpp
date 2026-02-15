@@ -46,13 +46,6 @@ int main() {
     loadRoads(graph, basePath + "Roadmap-Dhaka.csv");
     cout << "Loaded " << graph.nodeCount << " nodes\n\n";
     
-    // Open output file
-    ofstream outFile(basePath + "problem1/output.txt");
-    
-    outFile << "============================================================\n";
-    outFile << "PROBLEM 1: Shortest Car Route\n";
-    outFile << "============================================================\n\n";
-    
     // Test inputs from dataset (actual coordinates from road/transport data)
     double testInputs[3][4] = {
         // Test 1: Uttara to Mirpur 12 (Northern Dhaka)
@@ -75,28 +68,46 @@ int main() {
         
         auto [path, dist] = shortestCarRoute(startId, endId);
         
-        outFile << "------------------------------------------------------------\n";
-        outFile << "Test Case " << (t+1) << ":\n";
-        outFile << "------------------------------------------------------------\n";
+        // Create separate output file for each test case
+        ofstream outFile(basePath + "problem1/output_test" + to_string(t+1) + ".txt");
+        
         outFile << fixed << setprecision(6);
+        outFile << "Problem No: 1\n";
         outFile << "Source: (" << srcLon << ", " << srcLat << ")\n";
-        outFile << "Destination: (" << dstLon << ", " << dstLat << ")\n";
+        outFile << "Destination: (" << dstLon << ", " << dstLat << ")\n\n";
         
         if (dist >= 0) {
+            // Print path details
+            double totalDist = 0;
+            for (size_t i = 0; i < path.size() - 1; i++) {
+                int from = path[i];
+                int to = path[i + 1];
+                double segDist = haversine(graph.nodes[from].lat, graph.nodes[from].lon,
+                                          graph.nodes[to].lat, graph.nodes[to].lon);
+                totalDist += segDist;
+            }
+            
+            outFile << fixed << setprecision(2);
+            outFile << "Cost: Tk " << (totalDist * 20) << ": Drive Car from (" 
+                    << fixed << setprecision(6) << graph.nodes[path[0]].lon << ", " << graph.nodes[path[0]].lat 
+                    << ") to (" << graph.nodes[path.back()].lon << ", " << graph.nodes[path.back()].lat << ").\n\n";
+            
             outFile << fixed << setprecision(4);
-            outFile << "Shortest Distance: " << dist << " km\n\n";
+            outFile << "Total Distance: " << dist << " km\n";
+            outFile << fixed << setprecision(2);
+            outFile << "Total Cost: Tk " << (dist * 20) << "\n";
+            
             saveKML(graph, path, basePath + "problem1/output_test" + to_string(t+1) + ".kml");
+            cout << "Test " << (t+1) << ": Distance = " << fixed << setprecision(4) << dist << " km\n";
         } else {
-            outFile << "Status: No route found!\n\n";
+            outFile << "No route found!\n";
+            cout << "Test " << (t+1) << ": No route found\n";
         }
         
-        cout << "Test " << (t+1) << ": Distance = " << fixed << setprecision(4) << dist << " km\n";
+        outFile.close();
     }
     
-    outFile << "============================================================\n";
-    outFile.close();
-    
-    cout << "\nOutput saved to problem1/output.txt\n";
+    cout << "\nOutput saved to problem1/output_test1.txt, output_test2.txt, output_test3.txt\n";
     cout << "KML files saved to problem1/\n";
     
     return 0;

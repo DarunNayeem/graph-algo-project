@@ -64,10 +64,9 @@ TimeResult fastestRoute(int start, int end, int startMins, double costPerKm[4], 
     return {{}, {}, -1, -1};
 }
 
-void printTimedRoute(ofstream& outFile, TimeResult& res, double srcLat, double srcLon, double dstLat, double dstLon, 
-                     string startTime, double costPerKm[4]) {
+void printTimedRoute(ofstream& outFile, TimeResult& res, double costPerKm[4]) {
     if (res.cost < 0) {
-        outFile << "No route found!\n\n";
+        outFile << "No route found!\n";
         return;
     }
     
@@ -94,22 +93,22 @@ void printTimedRoute(ofstream& outFile, TimeResult& res, double srcLat, double s
         totalCost += segCost;
         
         string action;
-        if (mode == 0) action = "Drive Car";
-        else if (mode == 1) action = "Ride Metro Rail";
-        else if (mode == 2) action = "Ride Bikalpa Bus";
+        if (mode == 0) action = "Ride Car";
+        else if (mode == 1) action = "Ride Metro";
+        else if (mode == 2) action = "Ride Bikolpo Bus";
         else action = "Ride Uttara Bus";
         
         outFile << minsToTime(startT) << " - " << minsToTime(endT);
-        outFile << fixed << setprecision(2);
-        outFile << ", Cost: Tk " << segCost << ": " << action;
-        outFile << " from (" << graph.nodes[startNode].lon << ", " << graph.nodes[startNode].lat << ")";
+        outFile << ", Cost: Tk " << fixed << setprecision(2) << segCost << ": " << action;
+        outFile << " from (" << fixed << setprecision(6) << graph.nodes[startNode].lon << ", " << graph.nodes[startNode].lat << ")";
         outFile << " to (" << graph.nodes[endNode].lon << ", " << graph.nodes[endNode].lat << ").\n";
         
         i = j;
     }
     
-    outFile << "\nTotal Cost: Tk " << totalCost << "\n";
-    outFile << "Arrival Time: " << minsToTime(res.arrivalTime) << "\n\n";
+    outFile << "\n";
+    outFile << fixed << setprecision(2);
+    outFile << "Total Cost: Tk " << totalCost << "\n";
 }
 
 int main() {
@@ -121,16 +120,6 @@ int main() {
     loadTransport(graph, basePath + "Routemap-BikolpoBus.csv", 2);
     loadTransport(graph, basePath + "Routemap-UttaraBus.csv", 3);
     cout << "Loaded " << graph.nodeCount << " nodes\n\n";
-    
-    // Open output file
-    ofstream outFile(basePath + "problem5/output.txt");
-    
-    outFile << "============================================================\n";
-    outFile << "PROBLEM 5: Fastest Route\n";
-    outFile << "Cost per km: Car = Tk 20, Metro = Tk 5, Bikalpa = Tk 7, Uttara = Tk 7\n";
-    outFile << "Speed: All modes = 10 km/h (heavy traffic)\n";
-    outFile << "Schedule: Metro/Bus every 15 mins, 6:00 AM - 11:00 PM\n";
-    outFile << "============================================================\n\n";
     
     // Test input: Farmgate to Matijheel at 9:00 AM
     double srcLon = 90.387604, srcLat = 23.757573;
@@ -152,27 +141,27 @@ int main() {
     
     TimeResult res = fastestRoute(startId, endId, startMins, costPerKm, speeds, intervals, schedStart, schedEnd, allowed);
     
-    outFile << "------------------------------------------------------------\n";
-    outFile << "Test Case:\n";
-    outFile << "------------------------------------------------------------\n";
-    outFile << fixed << setprecision(6);
-    outFile << "Source: (" << srcLon << ", " << srcLat << ") [Farmgate]\n";
-    outFile << "Destination: (" << dstLon << ", " << dstLat << ") [Matijheel]\n";
-    outFile << "Starting Time: " << startTime << "\n\n";
+    // Create output file for test case
+    ofstream outFile(basePath + "problem5/output_test1.txt");
     
-    printTimedRoute(outFile, res, srcLat, srcLon, dstLat, dstLon, startTime, costPerKm);
+    outFile << fixed << setprecision(6);
+    outFile << "Problem No: 5\n";
+    outFile << "Source: (" << srcLon << ", " << srcLat << ")\n";
+    outFile << "Destination: (" << dstLon << ", " << dstLat << ")\n";
+    outFile << "Starting time at source: " << startTime << "\n\n";
+    
+    printTimedRoute(outFile, res, costPerKm);
     
     if (res.cost >= 0) {
         vector<int> nodes;
         for (auto& p : res.pathWithTime) nodes.push_back(p.first);
-        saveKML(graph, nodes, basePath + "problem5/output.kml");
+        saveKML(graph, nodes, basePath + "problem5/output_test1.kml");
         cout << "Arrival Time: " << minsToTime(res.arrivalTime) << ", Cost = Tk " << fixed << setprecision(2) << res.cost << "\n";
     }
     
-    outFile << "============================================================\n";
     outFile.close();
     
-    cout << "Output saved to problem5/output.txt\n";
+    cout << "Output saved to problem5/output_test1.txt\n";
     
     return 0;
 }

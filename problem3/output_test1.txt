@@ -1,0 +1,10 @@
+Problem No: 3
+Source: (90.363833, 23.834145)
+Destination: (90.385008, 23.732862)
+
+Cost: Tk 61.94: Ride Metro from (90.363833, 23.834145) to (90.395648, 23.732844).
+Cost: Tk 2.64: Drive Car from (90.395648, 23.732844) to (90.394696, 23.732855).
+Cost: Tk 7.27: Ride Bikalpa Bus from (90.394696, 23.732855) to (90.385008, 23.732862).
+
+Total Distance: 13.56 km
+Total Cost: Tk 71.85

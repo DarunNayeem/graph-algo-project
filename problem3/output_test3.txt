@@ -1,0 +1,11 @@
+Problem No: 3
+Source: (90.419952, 23.828786)
+Destination: (90.375289, 23.756477)
+
+Cost: Tk 66.30: Ride Uttara Bus from (90.419952, 23.828786) to (90.389810, 23.759175).
+Cost: Tk 3.08: Ride Metro from (90.389810, 23.759175) to (90.383775, 23.758856).
+Cost: Tk 19.64: Drive Car from (90.383775, 23.758856) to (90.374144, 23.758368).
+Cost: Tk 1.68: Ride Bikalpa Bus from (90.374144, 23.758368) to (90.375289, 23.756477).
+
+Total Distance: 11.31 km
+Total Cost: Tk 90.70

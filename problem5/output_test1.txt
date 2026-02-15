@@ -1,0 +1,10 @@
+Problem No: 5
+Source: (90.387604, 23.757573)
+Destination: (90.418119, 23.727553)
+Starting time at source: 9:00 AM
+
+9:00 AM - 9:15 AM, Cost: Tk 22.68: Ride Car from (90.387645, 23.757437) to (90.392232, 23.752799).
+9:15 AM - 9:16 AM, Cost: Tk 0.33: Ride Metro from (90.392232, 23.752799) to (90.392442, 23.752245).
+9:16 AM - 10:19 AM, Cost: Tk 97.35: Ride Car from (90.392442, 23.752245) to (90.418378, 23.727711).
+
+Total Cost: Tk 120.35

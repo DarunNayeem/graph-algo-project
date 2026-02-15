@@ -50,9 +50,9 @@ CostResult cheapestRoute(int start, int end, double costPerKm[4], bool allowed[4
     return {path, modes, cost[end]};
 }
 
-void printRoute(ofstream& outFile, CostResult& res, double srcLat, double srcLon, double dstLat, double dstLon, double costPerKm[4]) {
+void printRoute(ofstream& outFile, CostResult& res, double costPerKm[4]) {
     if (res.cost < 0) {
-        outFile << "No route found!\n\n";
+        outFile << "No route found!\n";
         return;
     }
     
@@ -77,18 +77,19 @@ void printRoute(ofstream& outFile, CostResult& res, double srcLat, double srcLon
         totalDist += segDist;
         totalCost += segCost;
         
-        string action = (mode == 0) ? "Drive" : "Ride";
+        string action = (mode == 0) ? "Drive Car" : "Ride " + getModeName(mode);
         outFile << fixed << setprecision(2);
-        outFile << "Cost: Tk " << segCost << " - " << action << " " << getModeName(mode);
-        outFile << " from (" << graph.nodes[startNode].lon << ", " << graph.nodes[startNode].lat << ")";
-        outFile << " to (" << graph.nodes[endNode].lon << ", " << graph.nodes[endNode].lat << ")";
-        outFile << " (" << segDist << " km)\n";
+        outFile << "Cost: Tk " << segCost << ": " << action;
+        outFile << " from (" << fixed << setprecision(6) << graph.nodes[startNode].lon << ", " << graph.nodes[startNode].lat << ")";
+        outFile << " to (" << graph.nodes[endNode].lon << ", " << graph.nodes[endNode].lat << ").\n";
         
         i = j;
     }
     
-    outFile << "\nTotal Distance: " << totalDist << " km\n";
-    outFile << "Total Cost: Tk " << totalCost << "\n\n";
+    outFile << "\n";
+    outFile << fixed << setprecision(2);
+    outFile << "Total Distance: " << totalDist << " km\n";
+    outFile << "Total Cost: Tk " << totalCost << "\n";
 }
 
 int main() {
@@ -100,14 +101,6 @@ int main() {
     loadTransport(graph, basePath + "Routemap-BikolpoBus.csv", 2);
     loadTransport(graph, basePath + "Routemap-UttaraBus.csv", 3);
     cout << "Loaded " << graph.nodeCount << " nodes\n\n";
-    
-    // Open output file
-    ofstream outFile(basePath + "problem3/output.txt");
-    
-    outFile << "============================================================\n";
-    outFile << "PROBLEM 3: Cheapest Route (All Transport Modes)\n";
-    outFile << "Cost per km: Car = Tk 20, Metro = Tk 5, Bikalpa = Tk 7, Uttara = Tk 7\n";
-    outFile << "============================================================\n\n";
     
     // Test inputs from dataset
     double testInputs[3][4] = {
@@ -135,26 +128,25 @@ int main() {
         
         CostResult res = cheapestRoute(startId, endId, costPerKm, allowed);
         
-        outFile << "------------------------------------------------------------\n";
-        outFile << "Test Case " << (t+1) << ":\n";
-        outFile << "------------------------------------------------------------\n";
+        // Create separate output file for each test case
+        ofstream outFile(basePath + "problem3/output_test" + to_string(t+1) + ".txt");
+        
         outFile << fixed << setprecision(6);
+        outFile << "Problem No: 3\n";
         outFile << "Source: (" << srcLon << ", " << srcLat << ")\n";
         outFile << "Destination: (" << dstLon << ", " << dstLat << ")\n\n";
         
-        printRoute(outFile, res, srcLat, srcLon, dstLat, dstLon, costPerKm);
+        printRoute(outFile, res, costPerKm);
         
         if (!res.path.empty()) {
             saveKML(graph, res.path, basePath + "problem3/output_test" + to_string(t+1) + ".kml");
         }
         
+        outFile.close();
         cout << "Test " << (t+1) << ": Cost = Tk " << fixed << setprecision(2) << res.cost << "\n";
     }
     
-    outFile << "============================================================\n";
-    outFile.close();
-    
-    cout << "\nOutput saved to problem3/output.txt\n";
+    cout << "\nOutput saved to problem3/output_test1.txt, output_test2.txt, output_test3.txt\n";
     
     return 0;
 }

@@ -2,7 +2,7 @@
 <kml xmlns="http://earth.google.com/kml/2.1">
 <Document>
 <Placemark>
-<name>/media/nym/Nym_s Files/grph-project/problem5/output.kml</name>
+<name>/media/nym/Nym_s Files/grph-project/problem5/output_test1.kml</name>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
