@@ -1,0 +1,16 @@
+============================================================
+PROBLEM 4: Cheapest Route with Time - 1 Test Case
+============================================================
+
+Test Case: Mirpur 10 to Shahbag at 5:30 PM
+------------------------------------------
+Source:       (90.366249, 23.815764) [Mirpur 10]
+Destination:  (90.396151, 23.738265) [Shahbag]
+Start Time:   5:30 PM
+
+Parameters:
+- Cost per km: Car = Tk 20, Metro = Tk 5, Bikalpa = Tk 7, Uttara = Tk 7
+- Speed: All modes = 30 km/h
+- Schedule: Metro/Bus every 15 mins, 6:00 AM - 11:00 PM
+
+============================================================

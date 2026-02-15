@@ -1,0 +1,20 @@
+============================================================
+PROBLEM 1: Shortest Car Route (3 Test Cases)
+============================================================
+
+Test Case 1: Uttara North to Mirpur 12
+--------------------------------------
+Source:      (90.400500, 23.869560) [Uttara North]
+Destination: (90.365170, 23.821900) [Mirpur 12]
+
+Test Case 2: Farmgate to Shahbag
+--------------------------------
+Source:      (90.387604, 23.757573) [Farmgate]
+Destination: (90.396151, 23.738265) [Shahbag]
+
+Test Case 3: Banani to Matijheel
+--------------------------------
+Source:      (90.403830, 23.793960) [Banani]
+Destination: (90.418119, 23.727553) [Matijheel]
+
+============================================================

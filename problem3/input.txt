@@ -1,0 +1,20 @@
+============================================================
+PROBLEM 3: Cheapest Route (All Modes) - 3 Test Cases
+============================================================
+
+Test Case 1: Mirpur 12 to TSC
+-----------------------------
+Source:      (90.365170, 23.821900) [Mirpur 12]
+Destination: (90.395512, 23.733082) [TSC Dhaka University]
+
+Test Case 2: Uttara BRTC to New Market
+--------------------------------------
+Source:      (90.399800, 23.874600) [Uttara BRTC]
+Destination: (90.384925, 23.732550) [New Market]
+
+Test Case 3: Khilkhet to Dhanmondi 27
+-------------------------------------
+Source:      (90.419952, 23.828786) [Khilkhet]
+Destination: (90.375289, 23.756477) [Dhanmondi 27]
+
+============================================================

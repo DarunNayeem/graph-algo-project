@@ -1,0 +1,22 @@
+============================================================
+PROBLEM 5: Fastest Route
+Cost per km: Car = Tk 20, Metro = Tk 5, Bikalpa = Tk 7, Uttara = Tk 7
+Speed: All modes = 10 km/h (heavy traffic)
+Schedule: Metro/Bus every 15 mins, 6:00 AM - 11:00 PM
+============================================================
+
+------------------------------------------------------------
+Test Case:
+------------------------------------------------------------
+Source: (90.387604, 23.757573) [Farmgate]
+Destination: (90.418119, 23.727553) [Matijheel]
+Starting Time: 9:00 AM
+
+9:00 AM - 9:15 AM, Cost: Tk 22.68: Drive Car from (90.39, 23.76) to (90.39, 23.75).
+9:15 AM - 9:16 AM, Cost: Tk 0.33: Ride Metro Rail from (90.39, 23.75) to (90.39, 23.75).
+9:16 AM - 10:19 AM, Cost: Tk 97.35: Drive Car from (90.39, 23.75) to (90.42, 23.73).
+
+Total Cost: Tk 120.35
+Arrival Time: 10:19 AM
+
+============================================================
